@@ -1,0 +1,30 @@
+{
+  "name": "sendinblue/base-32",
+  "description": "RFC 3548 and 4648 compliant base 32 encoder/decoder",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "SendinBlue Developers",
+      "email": "contact@sendinblue.com",
+      "homepage": "https://www.sendinblue.com/"
+    }
+  ],
+  "require": {
+    "php": ">=5.6"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2",
+    "phpunit/phpunit": "^5"
+  },
+  "autoload": {
+    "psr-4": {
+      "SendinBlue\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SendinBlue\\Tests\\": "tests/"
+    }
+  }
+}
