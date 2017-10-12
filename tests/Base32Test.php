@@ -23,15 +23,24 @@ class Base32Test extends TestCase
         $this->assertEquals('foo', Base32::decode('MZXW6'));
         $this->assertEquals('foob', Base32::decode('MZXW6YQ'));
         $this->assertEquals('foobar', Base32::decode('MZXW6YTBOI'));
+    }
 
+    public function testInvalidPaddingContent()
+    {
         $this->expectException(\UnexpectedValueException::class);
         Base32::decode('MZXW6YTBOI=====BOI');
+    }
 
+    public function testInvalidPaddingLength()
+    {
         $this->expectException(\RangeException::class);
-        Base32::decode('MZXW6YTBOI======');
+        Base32::decode('MZXW6YTBOI=====');
+    }
 
+    public function testInvalidAlphabet()
+    {
         $this->expectException(\OutOfBoundsException::class);
-        Base32::decode('WTF');
+        Base32::decode('007');
     }
 
     public function testEncode()
