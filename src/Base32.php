@@ -29,8 +29,8 @@ class Base32
         $encoded = '';
         $bitLeftCount = $carry = 0;
 
-        for ($i = 0, $length = strlen($string); $i < $length; ++$i) {
-            $ascii = ord($string[$i]);
+        for ($i = 0, $length = \strlen($string); $i < $length; ++$i) {
+            $ascii = \ord($string[$i]);
 
             $bitLeftCount += 3;
             $encoded .= self::ALPHABET[$carry << 8 - $bitLeftCount | $ascii >> $bitLeftCount];
@@ -64,7 +64,7 @@ class Base32
         $decoded = '';
         $bitCount = $carry = 0;
 
-        for ($i = 0, $length = strlen($string); $i < $length; ++$i) {
+        for ($i = 0, $length = \strlen($string); $i < $length; ++$i) {
             $character = $string[$i];
 
             if ('=' === $character) {
@@ -89,7 +89,7 @@ class Base32
 
             if ($bitCount >= 3) {
                 $bitCount -= 3;
-                $decoded .= chr($carry << 5 - $bitCount | $codePoint >> $bitCount);
+                $decoded .= \chr($carry << 5 - $bitCount | $codePoint >> $bitCount);
                 $carry = $codePoint & 2 ** $bitCount - 1;
             } else {
                 $bitCount += 5;
