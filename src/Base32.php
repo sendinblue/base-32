@@ -29,9 +29,7 @@ class Base32
         $encoded = '';
         $bitLeftCount = $carry = 0;
 
-        for ($i = 0, $length = \strlen($string); $i < $length; ++$i) {
-            $ascii = \ord($string[$i]);
-
+        foreach (unpack('C*', $string) as $ascii) {
             $bitLeftCount += 3;
             $encoded .= self::ALPHABET[$carry << 8 - $bitLeftCount | $ascii >> $bitLeftCount];
             $carry = $ascii & 2 ** $bitLeftCount - 1;
@@ -45,10 +43,10 @@ class Base32
 
         if ($bitLeftCount) {
             $encoded .= self::ALPHABET[$carry << 5 - $bitLeftCount];
-        }
 
-        if ($padding) {
-            $encoded .= str_repeat('=', [0, 6, 4, 3, 1][$length % 5]);
+            if ($padding) {
+                $encoded .= str_repeat('=', [1 => 4, 1, 6, 3][$bitLeftCount]);
+            }
         }
 
         return $encoded;
